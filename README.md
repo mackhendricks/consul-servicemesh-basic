@@ -1,11 +1,11 @@
-# Consul Servicemesh Basic Example 
+# Consul Service Mesh Basic Example 
 
 Allows you to spin up a HashiCorp Service Mesh on Kubernetes with Visualization using Grafana within 5 minutes
 
 
 ## Install
 
-1. Ensure that you have kubectl installed on your machine and configured to point to a Kubernetes cluster that you want to use
+1. Ensure that you have kubectl and helm 3 installed on your machine and it's configured to point to a Kubernetes cluster that you want to use
 
 2. Execute the following:
 
