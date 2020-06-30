@@ -1,0 +1,50 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: counting-service
+spec:
+  selector:
+    app: counting-service
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 9001
+
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: counting-service
+  labels:
+    app: counting-service
+  annotations:
+    'consul.hashicorp.com/service-name': counting-service
+    'consul.hashicorp.com/connect-inject': 'true'
+    'prometheus.io/scrape': 'true'
+    'prometheus.io/port': '9901'
+spec:
+  securityContext:
+    runAsUser: 2000
+    runAsGroup: 2000
+    fsGroup: 2000
+  containers:
+    - name: counting-service
+      image: hashicorp/counting-service:0.0.2
+      ports:
+        - containerPort: 9001
+          name: http
+  initContainers:
+  - name: counting-init
+    image: hashicorp/counting-init:0.0.9
+    env:
+    - name: POD_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.podIP
+    - name: HOST_IP
+      valueFrom:
+        fieldRef:
+          fieldPath: status.hostIP

@@ -1,0 +1,16 @@
+syncCatalog:
+  # True if you want to enable the catalog sync. Set to "-" to inherit from
+  # global.enabled.
+  enabled: true
+  image: null
+  default: true # true will sync by default, otherwise requires annotation
+
+connectInject:
+  enabled: true
+  centralConfig:
+    enabled: true
+    defaultProtocol: "http"
+    proxyDefaults: |
+      { 
+      "envoy_prometheus_bind_addr": "0.0.0.0:9901"
+      }
