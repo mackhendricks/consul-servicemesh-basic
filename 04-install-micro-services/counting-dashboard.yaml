@@ -39,15 +39,3 @@ spec:
     env:
     - name: COUNTING_SERVICE_URL
       value: "http://localhost:9001"
-  initContainers:
-  - name: dashboard-init
-    image: hashicorp/dashboard-init:0.0.4
-    env:
-    - name: POD_IP
-      valueFrom:
-        fieldRef:
-          fieldPath: status.podIP
-    - name: HOST_IP
-      valueFrom:
-        fieldRef:
-          fieldPath: status.hostIP
